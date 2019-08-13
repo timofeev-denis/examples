@@ -20,7 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RefreshScope
 @RestController
-@RequestMapping("/api/v1/rest/cars")
+@RequestMapping("/")
 public class CarsController {
 
     @Value("${cars.limit}")

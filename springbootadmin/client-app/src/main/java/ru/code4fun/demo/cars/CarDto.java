@@ -13,4 +13,12 @@ public class CarDto {
         this.brand = brand;
         this.model = model;
     }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
 }
