@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-app
+  labels:
+    app: client-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-app
+  template:
+    metadata:
+      labels:
+        app: client-app
+    spec:
+      containers:
+        - name: client-app
+          image: code4fun/client-app
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              protocol: TCP
