@@ -5,7 +5,7 @@ metadata:
   labels:
     app: client-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: client-app
@@ -21,3 +21,10 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            successThreshold: 1
