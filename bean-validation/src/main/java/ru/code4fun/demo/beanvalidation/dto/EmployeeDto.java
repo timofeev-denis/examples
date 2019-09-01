@@ -3,29 +3,25 @@ package ru.code4fun.demo.beanvalidation.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.*;
-
-/**
- * Created by: Denis Timofeev
- * Date: 01.09.2019
- */
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 @Data
 @Builder
 public class EmployeeDto {
 
-    @NotBlank(message = "Имя является обязательным полем")
+    @NotBlank(message = "Необходимо указать имя")
     private String name;
 
-    @NotBlank(message = "Email является обязательным полем")
     @Email(message = "Email должен быть корректным адресом электронной почты")
     private String email;
 
-    @NotBlank(message = "Телефон является обязательным полем")
     @Pattern(regexp = "\\+7[0-9]{10}", message = "Телефонный номер должен начинаться с +7, затем - 10 цифр")
     private String phone;
 
-    @NotNull(message = "Возраст является обязательным полем")
-    @Min(value = 18, message = "Возраст сотрудника не должен быть меньше 18 лет")
-    private Integer age;
+    @Past(message = "Дата приёма на работу не должна быть больше текущей")
+    private Date hireDate;
 }
