@@ -1,5 +1,6 @@
 package ru.code4fun.demo.beanvalidation.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class EmployeeDto {
 
     @NotBlank(message = "Необходимо указать имя")

@@ -12,11 +12,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import ru.code4fun.demo.beanvalidation.dto.EmployeeDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,19 +47,16 @@ class EmployeeControllerTest {
     void add() throws Exception {
         mockMvc.perform(post("/employees")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(mapper.writeValueAsString(buildValidEmployee())))
+                .content(mapper.writeValueAsString(buildValidEmployeeDto())))
                 .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Добавление. Имя должно быть заполнено")
     void addWithEmptyName() throws Exception {
-        EmployeeDto employee = buildValidEmployee();
-        employee.setName(null); // Пустое имя
-
         MvcResult response = mockMvc.perform(post("/employees")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(mapper.writeValueAsString(employee)))
+                .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 
@@ -66,7 +68,7 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("Добавление. Email должен быть валидным")
     void addWithInvalidEmail() throws Exception {
-        EmployeeDto employee = buildValidEmployee();
+        EmployeeDto employee = buildValidEmployeeDto();
         employee.setEmail("vasyapupkin.com"); // Невалидный email
 
         MvcResult response = mockMvc.perform(post("/employees")
@@ -83,7 +85,7 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("Добавление. Дата приёма на работу не должна быть больше текущей")
     void addWithHireDateInTheFuture() throws Exception {
-        EmployeeDto employee = buildValidEmployee();
+        EmployeeDto employee = buildValidEmployeeDto();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, 1);
@@ -100,10 +102,23 @@ class EmployeeControllerTest {
         assertTrue(message.contains("default message [Дата приёма на работу не должна быть больше текущей]"));
     }
 
+    @Test
+    @DisplayName("Принудительная валидация находит ошибку")
+    void manualValidationTest() {
+        EmployeeDto emp = new EmployeeDto(null, "email@server.com", null, null);
+
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<EmployeeDto>> violations = validator.validate(emp);
+
+        ConstraintViolation<EmployeeDto> violation = violations.stream().findFirst().orElseThrow(() -> new RuntimeException(""));
+        assertEquals("name", violation.getPropertyPath().toString());
+        assertEquals("Необходимо указать имя", violation.getMessageTemplate());
+    }
+
     /**
      * Подготовка валидного ДТО сотрудника
      */
-    private EmployeeDto buildValidEmployee() {
+    private EmployeeDto buildValidEmployeeDto() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.roll(Calendar.YEAR, -2);
