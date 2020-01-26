@@ -20,8 +20,8 @@
     </properties>
 
     <modules>
-        <module>web</module>
-        <module>cars</module>
+        <module>serviceone</module>
+        <module>servicetwo</module>
     </modules>
 
     <dependencies>
