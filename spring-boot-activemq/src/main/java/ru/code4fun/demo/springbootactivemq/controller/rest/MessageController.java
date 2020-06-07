@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.code4fun.demo.springbootactivemq.domain.EmailMessage;
 import ru.code4fun.demo.springbootactivemq.messageproducer.MessageProducerService;
 
 @Slf4j
@@ -19,8 +20,8 @@ public class MessageController {
     private final MessageProducerService service;
 
     @PostMapping("")
-    public ResponseEntity<Void> postMessage(@RequestBody String message) {
-        log.info("Получен запрос на отправку сообщения {}", message);
+    public ResponseEntity<Void> postMessage(@RequestBody EmailMessage message) {
+        log.info("Получен запрос на отправку сообщения адресату {}", message.getTo());
         service.postMessage(message);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
