@@ -13,6 +13,6 @@ public class MessageConsumer {
 
     @JmsListener(destination = QUEUE_NAME)
     public void consume(EmailMessage message) {
-        log.info("Доставлено сообщение: {}", message);
+        log.info("Получено сообщение: {}", message);
     }
 }
