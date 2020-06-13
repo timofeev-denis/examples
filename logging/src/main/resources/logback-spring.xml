@@ -11,11 +11,11 @@
         <file>tests.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>%d [%thread] %-5level - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="ru.code4fun.demo.logging.RootController" level="TRACE">
+    <logger name="ru.code4fun.demo.logging.aspect.ExecutionTimeLoggerAspect" level="TRACE">
         <appender-ref ref="FILE"/>
     </logger>
 
