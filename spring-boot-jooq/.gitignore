@@ -30,4 +30,4 @@ build/
 .vscode/
 
 ### jOOQ generated files ###
-**/jooq/
+**/jooq/*
