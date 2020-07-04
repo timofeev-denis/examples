@@ -3,8 +3,8 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create_tables" author="timofeev">
-        <createTable tableName="employee" schemaName="b2bdhdbuser">
+    <changeSet id="create_employee_table" author="timofeev">
+        <createTable tableName="employee">
             <column name="employee_id" type="bigserial">
                 <constraints primaryKey="true"/>
             </column>
