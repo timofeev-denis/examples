@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_tables" author="timofeev">
+        <createTable tableName="employee" schemaName="b2bdhdbuser">
+            <column name="employee_id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="employee_first_name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_last_name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,4 +1,4 @@
-package ru.code4fun.demo.springbootjooq;
+package ru.code4fun.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
