@@ -1,4 +1,4 @@
-Spring Retry Demo project
+##Spring Retry Demo project
 
 build: `mvn package`
 
