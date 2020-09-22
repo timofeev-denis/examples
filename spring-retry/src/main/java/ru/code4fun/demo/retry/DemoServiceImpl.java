@@ -11,12 +11,12 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public void retryableMethod() {
-        logger.debug("Вызов retryableMethod");
+        logger.debug("Calling retryableMethod");
         throw new OperationFailedException("Бросаем исключение");
     }
 
     @Override
     public void recover(OperationFailedException e) {
-        logger.debug("Вызов recover");
+        logger.debug("Calling recovery method");
     }
 }
