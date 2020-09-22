@@ -6,7 +6,7 @@ import org.springframework.retry.annotation.Retryable;
 
 public interface DemoService {
 
-    @Retryable(backoff = @Backoff(delay = 1000))
+    @Retryable(maxAttempts = 8, backoff = @Backoff(delay = 100, multiplier = 2))
     void retryableMethod();
 
     @Recover

@@ -19,6 +19,6 @@ public class DemoController {
     public String runMethod() {
         logger.debug("Получен запрос на запуск retryableMethod");
         demoService.retryableMethod();
-        return "Started retryableMethod";
+        return "finish";
     }
 }
