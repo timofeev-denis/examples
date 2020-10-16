@@ -4,8 +4,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService {
+    public String getOldMessage() {
+        return "OLD Hello !";
+    }
 
-    public String getMessage() {
-        return "Hello!";
+    public String getNewMessage() {
+        return "NEW Hello !";
     }
 }
