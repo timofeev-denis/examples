@@ -1,45 +1,64 @@
 package ru.code4fun.demo.designpatterns.observer;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class SubjectTest {
 
-    private static final PrintStream originalOut = System.out;
-    private static final OutputStream outContent = new ByteArrayOutputStream();
+    @Test
+    void observableWithoutSubscribers() {
+        ObservableImpl observable = new ObservableImpl();
 
-    @BeforeAll
-    static void beforeAll() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @AfterAll
-    static void afterAll() {
-        System.setOut(originalOut);
+        observable.doStuff();
     }
 
     @Test
     void observableNotifiesAllSubscribers() {
-        Observer observerMock1 = mock(Observer.class);
-        Observer observerMock2 = mock(Observer.class);
-        Observer observerMock3 = mock(Observer.class);
-        ObservableSubject subject = new ObservableSubject();
-        subject.subscribe(observerMock1);
-        subject.subscribe(observerMock2);
-        subject.subscribe(observerMock3);
+        ObservableImpl observable = new ObservableImpl();
+        List<Observer> observers = addSubscribers(observable, 5);
 
-        subject.doStuff();
+        observable.doStuff();
 
-        verify(observerMock1).update();
-        verify(observerMock2).update();
-        verify(observerMock3).update();
+        observers.forEach(o -> verify(o).update());
+    }
+
+    @Test
+    void observableDoesNotNotifiesUnsubscribed() {
+        ObservableImpl observable = new ObservableImpl();
+        List<Observer> observers = addSubscribers(observable, 5);
+        Observer unsubscribed = observers.get(2);
+        observable.unsubscribe(unsubscribed);
+
+        observable.doStuff();
+
+        verify(unsubscribed, times(0)).update();
+    }
+
+    @Test
+    void UnsubscribeDoesNotAffectOthers() {
+        ObservableImpl observable = new ObservableImpl();
+        List<Observer> observers = addSubscribers(observable, 5);
+        Observer unsubscribed = observers.get(2);
+        observable.unsubscribe(unsubscribed);
+
+        observable.doStuff();
+
+        observers.stream()
+                .filter(o -> !o.equals(unsubscribed))
+                .forEach(o -> verify(o).update());
+    }
+
+    private List<Observer> addSubscribers(ObservableImpl observable, Integer subscribersCount) {
+        List<Observer> observers = new ArrayList<>(subscribersCount);
+        for (int i = 0; i < subscribersCount; i++) {
+            Observer observer = mock(Observer.class);
+            observers.add(observer);
+            observable.subscribe(observer);
+        }
+        return observers;
     }
 }
