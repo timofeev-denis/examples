@@ -1,4 +1,4 @@
-package ru.code4fun.demo.apigateway.backend.backend;
+package ru.code4fun.demo.apigateway.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

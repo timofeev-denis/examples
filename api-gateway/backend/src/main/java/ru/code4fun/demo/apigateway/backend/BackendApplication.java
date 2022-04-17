@@ -1,4 +1,4 @@
-package ru.code4fun.demo.apigateway.backend.backend;
+package ru.code4fun.demo.apigateway.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

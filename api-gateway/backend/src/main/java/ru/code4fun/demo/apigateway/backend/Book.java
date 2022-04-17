@@ -1,4 +1,4 @@
-package ru.code4fun.demo.apigateway.backend.backend;
+package ru.code4fun.demo.apigateway.backend;
 
 public class Book {
     private String title;
