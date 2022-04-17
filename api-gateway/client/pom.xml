@@ -8,11 +8,11 @@
         <version>2.6.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ru.code4fun.demo.api-gateway.backend</groupId>
-    <artifactId>backend</artifactId>
+    <groupId>ru.code4fun.demo.api-gateway.client</groupId>
+    <artifactId>client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>
-    <description>backend</description>
+    <name>client</name>
+    <description>client</description>
     <properties>
         <java.version>11</java.version>
     </properties>

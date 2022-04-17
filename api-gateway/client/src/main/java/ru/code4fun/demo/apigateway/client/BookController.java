@@ -1,4 +1,4 @@
-package ru.code4fun.demo.apigateway.backend;
+package ru.code4fun.demo.apigateway.client;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
