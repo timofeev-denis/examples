@@ -7,14 +7,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PublicController {
+public class ProxyController {
 
     @Value("${downstream.client.url}")
     private String clientUrl;
 
+    @Value("${downstream.admin.url}")
+    private String adminUrl;
+
     @GetMapping("/public/**")
-    public ResponseEntity<?> proxyPath(ProxyExchange<?> proxy) throws Exception {
+    public ResponseEntity<?> proxyToClient(ProxyExchange<?> proxy) {
         String path = proxy.path("/public");
         return proxy.uri(clientUrl + path).get();
+    }
+
+    @GetMapping("/admin/**")
+    public ResponseEntity<?> proxyToAdmin(ProxyExchange<?> proxy) {
+        String path = proxy.path("/admin");
+        return proxy.uri(adminUrl + path).get();
     }
 }
