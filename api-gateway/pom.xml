@@ -12,6 +12,7 @@
     <modules>
         <module>client</module>
         <module>gateway</module>
+        <module>admin</module>
     </modules>
 
     <properties>
