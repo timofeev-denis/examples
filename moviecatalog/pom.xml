@@ -13,4 +13,9 @@
         <maven.compiler.target>14</maven.compiler.target>
     </properties>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>movieinfo-app</module>
+    </modules>
 </project>
