@@ -18,5 +18,6 @@
     <modules>
         <module>movieinfo-app</module>
         <module>rating-app</module>
+        <module>catalog-app</module>
     </modules>
 </project>
